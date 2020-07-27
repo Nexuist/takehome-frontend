@@ -1,7 +1,17 @@
 import React from "react";
-import { Card, Button, Container, Row, Col, Nav } from "react-bootstrap";
+import {
+  Image,
+  Table,
+  Media,
+  Card,
+  Button,
+  Container,
+  Row,
+  Col,
+  Nav,
+} from "react-bootstrap";
 import "./dashboard.css";
-import { PlusCircle, ShoppingCart, Edit } from "react-feather";
+import { PlusCircle, ShoppingCart, Edit, Star } from "react-feather";
 
 function ProductItem(props) {
   return (
@@ -44,7 +54,7 @@ function Dashboard(props) {
           <Container fluid>
             <Row className="mb-5">
               <Col>
-                <Card>
+                <Card id="description">
                   <Card.Header as="h5">
                     Description
                     <Edit size={18} color="blue" className="float-right" />
@@ -52,33 +62,47 @@ function Dashboard(props) {
                   <Card.Body>
                     <Card.Text>
                       With supporting text below as a natural lead-in to
-                      additional content.
+                      additional content.With supporting text below as a natural
+                      lead-in to additional content.
                     </Card.Text>
                   </Card.Body>
                 </Card>
               </Col>
               <Col>
-                <Card>
+                <Card id="metadata">
                   <Card.Header as="h5">
                     Metadata
                     <Edit size={18} color="blue" className="float-right" />
                   </Card.Header>
-                  <Card.Body>
-                    <Card.Text>
-                      With supporting text below as a natural lead-in to
-                      additional content.
-                    </Card.Text>
-                  </Card.Body>
+                  <Table striped hover className="mb-0">
+                    <thead>
+                      <tr>
+                        <th>Property</th>
+                        <th>Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Weight</td>
+                        <td>5 oz</td>
+                      </tr>
+                      <tr>
+                        <td>Height</td>
+                        <td>10 ft</td>
+                      </tr>
+                      <tr>
+                        <td>Volume</td>
+                        <td>100 sq ft</td>
+                      </tr>
+                    </tbody>
+                  </Table>
                 </Card>
               </Col>
             </Row>
-            <Row>
-              <Col>
+            <Row className="mb-5">
+              <Col id="sales">
                 <Card>
-                  <Card.Header as="h5">
-                    Sales
-                    <Edit size={18} color="blue" className="float-right" />
-                  </Card.Header>
+                  <Card.Header as="h5">Sales</Card.Header>
                   <Card.Body>
                     <Card.Text>
                       With supporting text below as a natural lead-in to
@@ -87,7 +111,7 @@ function Dashboard(props) {
                   </Card.Body>
                 </Card>
               </Col>
-              <Col>
+              <Col id="inventory">
                 <Card>
                   <Card.Header as="h5">
                     Inventory
@@ -95,9 +119,124 @@ function Dashboard(props) {
                   </Card.Header>
                   <Card.Body>
                     <Card.Text>
-                      With supporting text below as a natural lead-in to
-                      additional content.
+                      <h1>200</h1>
                     </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+            <Row className="mb-5">
+              <Col>
+                <Card>
+                  <Card.Header as="h5">
+                    Media
+                    <Edit size={18} color="blue" className="float-right" />
+                  </Card.Header>
+                  <Card.Body>
+                    <Image
+                      src="https://via.placeholder.com/500C/"
+                      width="180px"
+                      height="180px"
+                      thumbnail
+                      className="mr-3"
+                    />
+                    <Image
+                      src="https://via.placeholder.com/500C/"
+                      width="180px"
+                      height="180px"
+                      thumbnail
+                      className="mr-3"
+                    />
+                    <Image
+                      src="https://via.placeholder.com/500C/"
+                      width="180px"
+                      height="180px"
+                      thumbnail
+                      className="mr-3"
+                    />
+                    <Image
+                      src="https://via.placeholder.com/500C/"
+                      width="180px"
+                      height="180px"
+                      thumbnail
+                      className="mr-3"
+                    />
+                    <Image
+                      src="https://via.placeholder.com/500C/"
+                      width="180px"
+                      height="180px"
+                      thumbnail
+                      className="mr-3"
+                    />
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+            <Row className="mb-5">
+              <Col>
+                <Card>
+                  <Card.Header as="h5">Reviews</Card.Header>
+                  <Card.Body>
+                    <ul className="list-unstyled">
+                      <Media as="li">
+                        <span className="mr-2">
+                          <Star size={18} /> 4.5
+                        </span>
+                        <Media.Body>
+                          <h5>List-based media object</h5>
+                          <p>
+                            Cras sit amet nibh libero, in gravida nulla. Nulla
+                            vel metus scelerisque ante sollicitudin commodo.
+                            Cras purus odio, vestibulum in vulputate at, tempus
+                            viverra turpis. Fusce condimentum nunc ac nisi
+                            vulputate fringilla. Donec lacinia congue felis in
+                            faucibus.
+                          </p>
+                        </Media.Body>
+                      </Media>
+
+                      <Media as="li">
+                        <img
+                          width={64}
+                          height={64}
+                          className="mr-3"
+                          src="holder.js/64x64"
+                          alt="Generic placeholder"
+                        />
+                        <Media.Body>
+                          <h5>List-based media object</h5>
+                          <p>
+                            Cras sit amet nibh libero, in gravida nulla. Nulla
+                            vel metus scelerisque ante sollicitudin commodo.
+                            Cras purus odio, vestibulum in vulputate at, tempus
+                            viverra turpis. Fusce condimentum nunc ac nisi
+                            vulputate fringilla. Donec lacinia congue felis in
+                            faucibus.
+                          </p>
+                        </Media.Body>
+                      </Media>
+
+                      <Media as="li">
+                        <img
+                          width={64}
+                          height={64}
+                          className="mr-3"
+                          src="holder.js/64x64"
+                          alt="Generic placeholder"
+                        />
+                        <Media.Body>
+                          <h5>List-based media object</h5>
+                          <p>
+                            Cras sit amet nibh libero, in gravida nulla. Nulla
+                            vel metus scelerisque ante sollicitudin commodo.
+                            Cras purus odio, vestibulum in vulputate at, tempus
+                            viverra turpis. Fusce condimentum nunc ac nisi
+                            vulputate fringilla. Donec lacinia congue felis in
+                            faucibus.
+                          </p>
+                        </Media.Body>
+                      </Media>
+                    </ul>
                   </Card.Body>
                 </Card>
               </Col>
@@ -110,36 +249,3 @@ function Dashboard(props) {
 }
 
 export default Dashboard;
-
-// <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-//   <span>Saved reports</span>
-//   <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
-//     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-//   </a>
-// </h6>
-// <ul class="nav flex-column mb-2">
-//   <li class="nav-item">
-//     <a class="nav-link" href="#">
-//       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-//       Current month
-//     </a>
-//   </li>
-//   <li class="nav-item">
-//     <a class="nav-link" href="#">
-//       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-//       Last quarter
-//     </a>
-//   </li>
-//   <li class="nav-item">
-//     <a class="nav-link" href="#">
-//       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-//       Social engagement
-//     </a>
-//   </li>
-//   <li class="nav-item">
-//     <a class="nav-link" href="#">
-//       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-//       Year-end sale
-//     </a>
-//   </li>
-// </ul>
