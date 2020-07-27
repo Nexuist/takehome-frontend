@@ -1,7 +1,17 @@
 import React from "react";
-import { Button, Container, Row, Col, Nav } from "react-bootstrap";
+import { Card, Button, Container, Row, Col, Nav } from "react-bootstrap";
 import "./dashboard.css";
-import { PlusCircle } from "react-feather";
+import { PlusCircle, ShoppingCart, Edit } from "react-feather";
+
+function ProductItem(props) {
+  return (
+    <Nav.Item>
+      <Nav.Link active={props.active} href="#">
+        <ShoppingCart size={18} className="text-muted mr-2" /> {props.name}
+      </Nav.Link>
+    </Nav.Item>
+  );
+}
 
 function Dashboard(props) {
   return (
@@ -15,15 +25,85 @@ function Dashboard(props) {
                 Sign Out
               </Button>
             </div>
-
             <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1 text-muted">
               <span>Products</span>
               <a className="d-flex align-items-center text-muted">
                 <PlusCircle size={18} />
               </a>
             </h6>
+            <Nav as="ul" className="flex-column mb-2">
+              <ProductItem active={true} name="Product" />
+              <ProductItem name="Product" />
+            </Nav>
           </div>
         </Nav>
+        <main className="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+          <h1 className="mb-5">
+            Product <Edit size={18} color="blue" />
+          </h1>
+          <Container fluid>
+            <Row className="mb-5">
+              <Col>
+                <Card>
+                  <Card.Header as="h5">
+                    Description
+                    <Edit size={18} color="blue" className="float-right" />
+                  </Card.Header>
+                  <Card.Body>
+                    <Card.Text>
+                      With supporting text below as a natural lead-in to
+                      additional content.
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col>
+                <Card>
+                  <Card.Header as="h5">
+                    Metadata
+                    <Edit size={18} color="blue" className="float-right" />
+                  </Card.Header>
+                  <Card.Body>
+                    <Card.Text>
+                      With supporting text below as a natural lead-in to
+                      additional content.
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Card>
+                  <Card.Header as="h5">
+                    Sales
+                    <Edit size={18} color="blue" className="float-right" />
+                  </Card.Header>
+                  <Card.Body>
+                    <Card.Text>
+                      With supporting text below as a natural lead-in to
+                      additional content.
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col>
+                <Card>
+                  <Card.Header as="h5">
+                    Inventory
+                    <Edit size={18} color="blue" className="float-right" />
+                  </Card.Header>
+                  <Card.Body>
+                    <Card.Text>
+                      With supporting text below as a natural lead-in to
+                      additional content.
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
+        </main>
       </Row>
     </Container>
   );
