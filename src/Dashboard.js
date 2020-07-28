@@ -93,6 +93,16 @@ const sampleData = {
 function Dashboard(props) {
   let [products, setProducts] = useState(null);
   let [selectedProduct, selectProduct] = useState(null);
+  let updateProductKey = async (id, key, value) => {
+    let url = `/products/${props.user.username}/${id}/update`;
+    console.log(url, key, value);
+    return await props.post(url, {
+      username: props.user.username,
+      password: props.user.password,
+      key,
+      value,
+    });
+  };
   useEffect(() => {
     async function fetchProducts() {
       let result = await props
@@ -106,8 +116,8 @@ function Dashboard(props) {
       selectProduct(result.products[0]);
       setProducts(result.products);
     }
-    fetchProducts();
-  }, []);
+    if (products == null) fetchProducts();
+  }, [products]);
   return (
     <Container fluid>
       <Row>
@@ -124,11 +134,24 @@ function Dashboard(props) {
           ) : (
             <Container fluid>
               <Row className="mb-5">
-                <Col>
-                  <h1>
-                    {selectedProduct.name} <Edit size={18} color="blue" />
-                  </h1>
-                </Col>
+                <CardColWithBody
+                  header="Name"
+                  editableProperties={{
+                    Name: {
+                      value: selectedProduct.name,
+                      textArea: false,
+                    },
+                  }}
+                  onSaveChanges={async (edits) => {
+                    await updateProductKey(1, "name", edits.Name.value);
+                    setProducts(null);
+                  }}
+                  className="col-md-12"
+                >
+                  <Card.Text>
+                    <h1>{selectedProduct.name}</h1>
+                  </Card.Text>
+                </CardColWithBody>
               </Row>
               <Row>
                 <CardColWithBody
@@ -139,8 +162,13 @@ function Dashboard(props) {
                       textArea: true,
                     },
                   }}
-                  onSaveChanges={(edits) => {
-                    console.log("SAVED", edits);
+                  onSaveChanges={async (edits) => {
+                    await updateProductKey(
+                      1,
+                      "description",
+                      edits.Description.value
+                    );
+                    setProducts(null);
                   }}
                 >
                   <Card.Text>{selectedProduct.description}</Card.Text>

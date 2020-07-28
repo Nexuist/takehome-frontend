@@ -20,7 +20,7 @@ function CardCol(props) {
     setState({
       ...state,
       [name]: {
-        val: evt.target.value,
+        value: evt.target.value,
         textArea: state[name].textArea,
       },
     });
