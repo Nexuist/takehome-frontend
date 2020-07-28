@@ -3,9 +3,26 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginPage from "./LoginPage";
 import Dashboard from "./Dashboard";
+
+const ENDPOINT = "https://2vdet6m87c.execute-api.us-east-1.amazonaws.com/dev";
+
+const post = async (resource, json) => {
+  return fetch(ENDPOINT + resource, {
+    method: "POST",
+    body: JSON.stringify(json),
+  });
+};
+
 function App() {
-  return <Dashboard></Dashboard>;
-  // return <LoginPage></LoginPage>;
+  let [userAccount, setUserAccount] = useState({});
+  return userAccount ? (
+    <Dashboard />
+  ) : (
+    <LoginPage
+      post={post}
+      onLoggedIn={(acc) => setUserAccount(acc)}
+    ></LoginPage>
+  );
 }
 
 export default App;
