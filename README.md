@@ -1,3 +1,5 @@
+NOTE: This project has been published early and may not be finished.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
