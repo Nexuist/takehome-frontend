@@ -57,7 +57,6 @@ function Sidebar(props) {
       </h6>
       <Nav as="ul" className="flex-column mb-2">
         <ProductItem active={true} name="Banana" />
-        <ProductItem name="Orange" />
       </Nav>
     </div>
   );
@@ -173,7 +172,23 @@ function Dashboard(props) {
                 >
                   <Card.Text>{selectedProduct.description}</Card.Text>
                 </CardColWithBody>
-                <CardCol header="Metadata" editable={true}>
+                <CardCol
+                  header="Metadata"
+                  editableProperties={{
+                    Metadata: {
+                      value: JSON.stringify(selectedProduct.metadata) ?? "{}",
+                      textArea: true,
+                    },
+                  }}
+                  onSaveChanges={async (edits) => {
+                    await updateProductKey(
+                      1,
+                      "metadata",
+                      JSON.parse(edits.Metadata.value)
+                    );
+                    setProducts(null);
+                  }}
+                >
                   {Object.keys(selectedProduct.metadata).length == 0 && (
                     <p className="text-muted pt-3 pl-3">
                       No product metadata available.
@@ -206,7 +221,25 @@ function Dashboard(props) {
 
                 <CardColWithBody
                   header="Price & Inventory"
-                  editable={true}
+                  editableProperties={{
+                    Price: {
+                      value: selectedProduct.price,
+                      textArea: false,
+                    },
+                    Inventory: {
+                      value: selectedProduct.inventoryCount,
+                      textArea: false,
+                    },
+                  }}
+                  onSaveChanges={async (edits) => {
+                    await updateProductKey(1, "price", +edits.Price.value);
+                    await updateProductKey(
+                      1,
+                      "inventoryCount",
+                      +edits.Inventory.value
+                    );
+                    setProducts(null);
+                  }}
                   className="pb-2"
                 >
                   <h1>
