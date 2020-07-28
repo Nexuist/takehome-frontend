@@ -9,10 +9,13 @@ import {
   Row,
   Col,
   Nav,
+  Modal,
 } from "react-bootstrap";
 import "./dashboard.css";
 import { PlusCircle, ShoppingCart, Edit, Star } from "react-feather";
 import { Line } from "react-chartjs-2";
+import CardCol from "./CardCol";
+import CardColWithBody from "./CardColWithBody";
 
 /*
   - active: boolean
@@ -57,42 +60,6 @@ function Sidebar(props) {
         <ProductItem name="Orange" />
       </Nav>
     </div>
-  );
-}
-
-/*
-  - className: string
-  - header: string
-  - editable: boolean
-  - child: any
-*/
-function CardCol(props) {
-  return (
-    <Col className={props.className + " col-12 col-md-6 mb-5"}>
-      <Card id="description">
-        <Card.Header as="h5">
-          {props.header}
-          {props.editable == true && (
-            <Edit size={18} color="blue" className="float-right" />
-          )}
-        </Card.Header>
-        {props.children}
-      </Card>
-    </Col>
-  );
-}
-
-/*
-  - className: string
-  - header: string
-  - editable: boolean
-  - child: any
-*/
-function CardColWithBody(props) {
-  return (
-    <CardCol {...props}>
-      <Card.Body>{props.children}</Card.Body>
-    </CardCol>
   );
 }
 
@@ -164,7 +131,18 @@ function Dashboard(props) {
                 </Col>
               </Row>
               <Row>
-                <CardColWithBody header="Description" editable={true}>
+                <CardColWithBody
+                  header="Description"
+                  editableProperties={{
+                    Description: {
+                      value: selectedProduct.description,
+                      textArea: true,
+                    },
+                  }}
+                  onSaveChanges={(edits) => {
+                    console.log("SAVED", edits);
+                  }}
+                >
                   <Card.Text>{selectedProduct.description}</Card.Text>
                 </CardColWithBody>
                 <CardCol header="Metadata" editable={true}>
@@ -223,6 +201,7 @@ function Dashboard(props) {
                   )}
                   {selectedProduct.media.map((x) => (
                     <Image
+                      key={x}
                       src="https://via.placeholder.com/500C/"
                       width="180px"
                       height="180px"
@@ -240,7 +219,7 @@ function Dashboard(props) {
                     </p>
                   )}
                   {selectedProduct.reviews.map((x) => (
-                    <Media as="li">
+                    <Media as="li" key={x.timestamp}>
                       <span className="mr-2">
                         <Star size={18} /> {x.stars}
                       </span>
