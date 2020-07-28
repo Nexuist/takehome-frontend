@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Image,
   Table,
@@ -24,11 +24,13 @@ function ProductItem(props) {
   );
 }
 
+// TODO: price setting!!
+
 const sampleData = {
   labels: ["January", "February", "March", "April", "May", "June", "July"],
   datasets: [
     {
-      label: "My First dataset",
+      label: "Banana Sales",
       fill: false,
       lineTension: 0.1,
       backgroundColor: "rgba(75,192,192,0.4)",
@@ -52,14 +54,35 @@ const sampleData = {
 };
 
 function Dashboard(props) {
+  let [products, setProducts] = useState(null);
+  let [selectedProduct, selectProduct] = useState(null);
+  useEffect(() => {
+    async function fetchProducts() {
+      let result = await props
+        .post("/products/mine", {
+          username: props.user.username,
+          password: props.user.password,
+        })
+        .then((res) => res.json());
+      if (!result.success)
+        alert("There was a problem retrieving your products");
+      setProducts(result.products);
+    }
+    fetchProducts();
+  }, []);
   return (
     <Container fluid>
       <Row>
         <Nav className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
           <div className="sidebar-sticky">
             <div className="text-center mb-4">
-              <h5 className="text-muted ">Supermarket</h5>
-              <Button variant="outline-danger" size="sm" block={false}>
+              <h5 className="text-muted">{props.user.username}</h5>
+              <Button
+                variant="outline-danger"
+                size="sm"
+                block={false}
+                onClick={props.onLogOut}
+              >
                 Sign Out
               </Button>
             </div>
@@ -70,8 +93,8 @@ function Dashboard(props) {
               </a>
             </h6>
             <Nav as="ul" className="flex-column mb-2">
-              <ProductItem active={true} name="Product" />
-              <ProductItem name="Product" />
+              <ProductItem active={true} name="Banana" />
+              <ProductItem name="Orange" />
             </Nav>
           </div>
         </Nav>
@@ -88,11 +111,7 @@ function Dashboard(props) {
                     <Edit size={18} color="blue" className="float-right" />
                   </Card.Header>
                   <Card.Body>
-                    <Card.Text>
-                      With supporting text below as a natural lead-in to
-                      additional content.With supporting text below as a natural
-                      lead-in to additional content.
-                    </Card.Text>
+                    <Card.Text>A humble banana</Card.Text>
                   </Card.Body>
                 </Card>
               </Col>
@@ -116,11 +135,11 @@ function Dashboard(props) {
                       </tr>
                       <tr>
                         <td>Height</td>
-                        <td>10 ft</td>
+                        <td>8 in</td>
                       </tr>
                       <tr>
                         <td>Volume</td>
-                        <td>100 sq ft</td>
+                        <td>110 mL</td>
                       </tr>
                     </tbody>
                   </Table>
@@ -203,21 +222,14 @@ function Dashboard(props) {
                     <ul className="list-unstyled">
                       <Media as="li">
                         <span className="mr-2">
-                          <Star size={18} /> 4.5
+                          <Star size={18} /> 4
                         </span>
                         <Media.Body>
-                          <h5>List-based media object</h5>
-                          <p>
-                            Cras sit amet nibh libero, in gravida nulla. Nulla
-                            vel metus scelerisque ante sollicitudin commodo.
-                            Cras purus odio, vestibulum in vulputate at, tempus
-                            viverra turpis. Fusce condimentum nunc ac nisi
-                            vulputate fringilla. Donec lacinia congue felis in
-                            faucibus.
-                          </p>
+                          <h5>andi</h5>
+                          <p>Very yummy, but could be cheaper. 4 stars!</p>
                         </Media.Body>
                       </Media>
-
+                      {/* 
                       <Media as="li">
                         <img
                           width={64}
@@ -258,7 +270,7 @@ function Dashboard(props) {
                             faucibus.
                           </p>
                         </Media.Body>
-                      </Media>
+                      </Media> */}
                     </ul>
                   </Card.Body>
                 </Card>

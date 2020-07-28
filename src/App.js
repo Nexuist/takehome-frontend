@@ -15,8 +15,12 @@ const post = async (resource, json) => {
 
 function App() {
   let [userAccount, setUserAccount] = useState({});
-  return userAccount ? (
-    <Dashboard />
+  return userAccount.username ? (
+    <Dashboard
+      post={post}
+      user={userAccount}
+      onLogOut={() => setUserAccount({})}
+    />
   ) : (
     <LoginPage
       post={post}
